@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "start": "WITH_SNAPSHOT=true node dist/index.js",
-    "dev": "npm run build && WITH_SNAPSHOT=true npm run start",
-    "test": "vitest"
-  },
+ "scripts": {
+  "build": "tsc",
+  "start": "node dist/index.js",
+  "start:snapshot": "WITH_SNAPSHOT=true node dist/index.js",
+  "dev": "npm run build && npm run start:snapshot",
+  "test": "vitest"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
