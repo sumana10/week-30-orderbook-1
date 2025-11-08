@@ -26,7 +26,7 @@ app.post('/api/v1/order', (req, res) => {
   }
 
   const { executedQty, fills } = fillOrder(orderId, price, quantity, side, kind);
-
+console.log(order);
   res.send({
     orderId,
     executedQty,
@@ -112,7 +112,7 @@ function fillOrder(orderId: string, price: number, quantity: number, side: "buy"
                 }
             }
         });
-
+       
         // Place on the book if order not filled
         if (quantity !== 0) {
             orderbook.asks.push({
@@ -125,7 +125,8 @@ function fillOrder(orderId: string, price: number, quantity: number, side: "buy"
         }
     }
 
-
+    console.log(orderbook);
+    console.log(bookWithQuantity);
     return {
         status: 'accepted',
         executedQty,

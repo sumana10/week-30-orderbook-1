@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
- "scripts": {
-  "build": "tsc",
-  "start": "node dist/index.js",
-  "start:snapshot": "WITH_SNAPSHOT=true node dist/index.js",
-  "dev": "npm run build && npm run start:snapshot",
-  "test": "vitest"
-},
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:snapshot": "WITH_SNAPSHOT=true node dist/index.js",
+    "dev": "npm run build && npm run start:snapshot",
+    "test": "vitest"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -18,5 +18,9 @@
     "@types/redis": "^4.0.11",
     "express": "^4.19.2",
     "vitest": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "typescript": "^5.9.3"
   }
 }
