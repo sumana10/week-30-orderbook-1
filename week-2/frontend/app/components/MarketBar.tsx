@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Ticker } from "../utils/types";
+import type { Ticker } from "../utils/types";
 import { getTicker } from "../utils/httpClient";
 import { SignalingManager } from "../utils/SignalingManager";
 
@@ -52,7 +52,7 @@ export const MarketBar = ({market}: {market: string}) => {
                             <button type="button" className="font-medium transition-opacity hover:opacity-80 hover:cursor-pointer text-base text-left" data-rac="">
                                 <div className="flex flex-col">
                                     <p className="font-medium text-xs text-slate-400 text-sm">24H Volume</p>
-                                    <p className="mt-1 text-sm font-medium tabular-nums leading-5 text-sm ">{ticker?.volume}
+                                    <p className="mt-1 text-sm font-medium tabular-nums leading-5 text-sm ">{ticker?.volume} 
                                 </p>
                             </div>
                         </button>

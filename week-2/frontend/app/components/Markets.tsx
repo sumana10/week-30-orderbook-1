@@ -19,7 +19,7 @@ export const Markets = () => {
           <table className="w-full table-auto">
             <MarketHeader />
             {/* {tickers?.map((m) => <MarketRow market={m} />)} */}
-           { (tickers && tickers.length > 0) ? tickers.map((m) => <MarketRow market={m} />) : <></> }
+            {(tickers && tickers.length > 0) ? tickers.map((m) => <MarketRow market={m} />) : <></>}
           </table>
         </div>
       </div>
@@ -77,56 +77,56 @@ function MarketRow({ market }: { market: Ticker }) {
         <p className="text-base font-medium tabular-nums text-greenText">
           {Number(market.priceChangePercent)?.toFixed(3)} %
         </p>
-      </td> 
+      </td>
     </tr>
   );
 }
 
 function MarketHeader() {
   return (
-      <thead>
-        <tr className="">
-          <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
-            <div className="flex items-center gap-1 cursor-pointer select-none">
-              Name<span className="w-[16px]"></span>
-            </div>
-          </th>
-          <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
-            <div className="flex items-center gap-1 cursor-pointer select-none">
-              Price<span className="w-[16px]"></span>
-            </div>
-          </th>
-          <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
-            <div className="flex items-center gap-1 cursor-pointer select-none">
-              Market Cap<span className="w-[16px]"></span>
-            </div>
-          </th>
-          <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
-            <div className="flex items-center gap-1 cursor-pointer select-none">
-              24h Volume
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                className="lucide lucide-arrow-down h-4 w-4"
-              >
-                <path d="M12 5v14"></path>
-                <path d="m19 12-7 7-7-7"></path>
-              </svg>
-            </div>
-          </th>
-          <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
-            <div className="flex items-center gap-1 cursor-pointer select-none">
-              24h Change<span className="w-[16px]"></span>
-            </div>
-          </th>
-        </tr>
-      </thead>
+    <thead>
+      <tr className="">
+        <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
+          <div className="flex items-center gap-1 cursor-pointer select-none">
+            Name<span className="w-[16px]"></span>
+          </div>
+        </th>
+        <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
+          <div className="flex items-center gap-1 cursor-pointer select-none">
+            Price<span className="w-[16px]"></span>
+          </div>
+        </th>
+        <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
+          <div className="flex items-center gap-1 cursor-pointer select-none">
+            Market Cap <span className="w-[16px]"></span>
+          </div>
+        </th>
+        <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
+          <div className="flex items-center gap-1 cursor-pointer select-none">
+            24h Volume
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="lucide lucide-arrow-down h-4 w-4"
+            >
+              <path d="M12 5v14"></path>
+              <path d="m19 12-7 7-7-7"></path>
+            </svg>
+          </div>
+        </th>
+        <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
+          <div className="flex items-center gap-1 cursor-pointer select-none">
+            24h Change<span className="w-[16px]"></span>
+          </div>
+        </th>
+      </tr>
+    </thead>
   );
 }
