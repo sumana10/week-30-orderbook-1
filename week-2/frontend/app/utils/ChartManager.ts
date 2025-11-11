@@ -16,11 +16,11 @@ export class ChartManager {
     low: number | null;
     close: number | null;
   } = {
-    open: null,
-    high: null,
-    low: null,
-    close: null,
-  };
+      open: null,
+      high: null,
+      low: null,
+      close: null,
+    };
 
   constructor(
     ref: any,

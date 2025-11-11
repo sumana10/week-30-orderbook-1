@@ -39,9 +39,9 @@ const Appbar = () => {
                     </div>
 
                     {[
-                        { href: "/spot", label: "Spot" },
-                        { href: "/futures", label: "Futures" },
-                        { href: "/lend", label: "Lend" },
+                        { href: "/trade/SOL_USDC", label: "Spot" },
+                        { href: "/trade/SOL_USDC", label: "Futures" },
+                        { href: "/trade/SOL_USDC", label: "Lend" },
                     ].map((item) => (
                         <div key={item.href} className="text-sm pt-1 pl-8 flex flex-col justify-center">
                             <Link

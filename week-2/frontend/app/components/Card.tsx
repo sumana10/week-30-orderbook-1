@@ -14,7 +14,7 @@ interface CardProps {
 }
 
 
-const Card = ({ title, coins = [], className = "" }: CardProps) =>{
+const Card = ({ title, coins = [], className = "" }: CardProps) => {
   return (
     <div className={`${className} bg-[#111214] border border-[#1e1f23]
  rounded-lg w-full py-3`}>
@@ -38,11 +38,10 @@ const Card = ({ title, coins = [], className = "" }: CardProps) =>{
           <div className="flex justify-between w-[60%] text-right">
             <p className="w-[50%]">${parseFloat(item.value).toLocaleString()}</p>
             <p
-              className={`${
-                item.change.startsWith("-")
+              className={`${item.change.startsWith("-")
                   ? "text-red-500"
                   : "text-green-400"
-              } w-[50%]`}
+                } w-[50%]`}
             >
               {item.change}
             </p>

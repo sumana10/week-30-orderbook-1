@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Footer = () =>{
+const Footer = () => {
   const year = new Date().getFullYear();
 
   return (

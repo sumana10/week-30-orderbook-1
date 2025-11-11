@@ -51,7 +51,7 @@ const slides = [
   },
 ];
 
-const ImageCarousel = () =>{
+const ImageCarousel = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ stopOnInteraction: false, delay: 3500 }),
   ]);
@@ -90,33 +90,33 @@ const ImageCarousel = () =>{
             key={index}
             className="relative w-full flex-shrink-0 flex-grow-0 basis-full rounded-2xl overflow-hidden"
           >
-<div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10c5] via-[#0b0c10a0] to-transparent mix-blend-multiply"></div>
-<img
-  src={slide.image}
-  alt={slide.heading}
-  className="w-full h-[320px] md:h-[380px] object-cover rounded-2xl brightness-105 contrast-105"
-/>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10c5] via-[#0b0c10a0] to-transparent mix-blend-multiply"></div>
+            <img
+              src={slide.image}
+              alt={slide.heading}
+              className="w-full h-[320px] md:h-[380px] object-cover rounded-2xl brightness-105 contrast-105"
+            />
 
-<div className="absolute inset-0 flex flex-col justify-center items-start z-10 text-left pl-10 md:pl-20 max-w-2xl">
-<h2 className="text-[36px] font-extrabold leading-tight text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]">
-  {slide.heading}
-</h2>
+            <div className="absolute inset-0 flex flex-col justify-center items-start z-10 text-left pl-10 md:pl-20 max-w-2xl">
+              <h2 className="text-[36px] font-extrabold leading-tight text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]">
+                {slide.heading}
+              </h2>
 
 
 
-  <p className="mt-3 text-gray-400 text-base md:text-xl font-medium max-w-md">
-    {slide.description}
-  </p>
+              <p className="mt-3 text-gray-400 text-base md:text-xl font-medium max-w-md">
+                {slide.description}
+              </p>
 
-  {slide.linkText && (
-    <Link
-      href="#"
-      className="inline-block mt-5 px-6 py-3 rounded-xl bg-white text-zinc-900 text-sm md:text-base font-semibold hover:bg-gray-200 transition"
-    >
-      {slide.linkText}
-    </Link>
-  )}
-</div>
+              {slide.linkText && (
+                <Link
+                  href="#"
+                  className="inline-block mt-5 px-6 py-3 rounded-xl bg-white text-zinc-900 text-sm md:text-base font-semibold hover:bg-gray-200 transition"
+                >
+                  {slide.linkText}
+                </Link>
+              )}
+            </div>
 
           </div>
         ))}
