@@ -1,10 +1,16 @@
 import axios from "axios";
 import { Depth, KLine, Ticker, Trade } from "./types";
 
-const BASE_URL = "https://exchange-proxy.100xdevs.com/api/v1";
+const BASE_URL = "https://api.backpack.exchange/api/v1";
 
 export async function getTicker(market: string): Promise<Ticker> {
     const tickers = await getTickers();
+    if (Array.isArray(tickers)) {
+        const result = tickers.find(ticker => ticker.symbol === 'AAPL');
+    } else {
+        console.error('tickers is not an array:', tickers);
+    }
+    
     const ticker = tickers.find(t => t.symbol === market);
     if (!ticker) {
         throw new Error(`No ticker found for ${market}`);

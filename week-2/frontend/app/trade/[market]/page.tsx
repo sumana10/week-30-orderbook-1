@@ -1,5 +1,5 @@
 "use client";
-import { MarketBar } from "@/app/components/MarketBar";
+import MarketBar  from "@/app/components/MarketBar";
 import { SwapUI } from "@/app/components/SwapUI";
 import { TradeView } from "@/app/components/TradeView";
 import { Depth } from "@/app/components/depth/Depth";
@@ -10,7 +10,7 @@ export default function Page() {
     return <div className="flex flex-row flex-1">
         <div className="flex flex-col flex-1">
             <MarketBar market={market as string} />
-            <div className="flex flex-row h-[920px] border-y border-slate-800">
+            <div className="flex flex-row flex-1 border-y border-slate-800">
                 <div className="flex flex-col flex-1">
                     <TradeView market={market as string} />
                 </div>
@@ -21,7 +21,7 @@ export default function Page() {
         </div>
         <div className="w-[10px] flex-col border-slate-800 border-l"></div>
         <div>
-            <div className="flex flex-col w-[250px]">
+            <div className="flex flex-col w-[320px]">
                 <SwapUI market={market as string} />
             </div>
         </div>

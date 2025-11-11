@@ -176,36 +176,59 @@ export class Engine {
         this.orderbooks.push(orderbook);
     }
 
-    createOrder(market: string, price: string, quantity: string, side: "buy" | "sell", userId: string) {
-
-        const orderbook = this.orderbooks.find(o => o.ticker() === market)
+    createOrder(
+        market: string,
+        price: string,
+        quantity: string,
+        side: "buy" | "sell",
+        userId: string
+      ) {
+        // 🔍 Try to find an existing orderbook for the market
+        let orderbook = this.orderbooks.find((o) => o.ticker() === market);
+      
+        // 🆕 If not found, create one dynamically
+        if (!orderbook) {
+          const [base] = market.split("_");
+          orderbook = new Orderbook(base, [], [], 0, 0);
+          this.addOrderbook(orderbook);
+          console.log(`🆕 Created new orderbook for ${market}`);
+        }
+      
         const baseAsset = market.split("_")[0];
         const quoteAsset = market.split("_")[1];
-
-        if (!orderbook) {
-            throw new Error("No orderbook found");
-        }
-
-        this.checkAndLockFunds(baseAsset, quoteAsset, side, userId, quoteAsset, price, quantity);
-
+      
+        this.checkAndLockFunds(
+          baseAsset,
+          quoteAsset,
+          side,
+          userId,
+          quoteAsset,
+          price,
+          quantity
+        );
+      
         const order: Order = {
-            price: Number(price),
-            quantity: Number(quantity),
-            orderId: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
-            filled: 0,
-            side,
-            userId
-        }
-        
+          price: Number(price),
+          quantity: Number(quantity),
+          orderId:
+            Math.random().toString(36).substring(2, 15) +
+            Math.random().toString(36).substring(2, 15),
+          filled: 0,
+          side,
+          userId,
+        };
+      
         const { fills, executedQty } = orderbook.addOrder(order);
         this.updateBalance(userId, baseAsset, quoteAsset, side, fills, executedQty);
-
+      
         this.createDbTrades(fills, market, userId);
         this.updateDbOrders(order, executedQty, fills, market);
         this.publisWsDepthUpdates(fills, price, side, market);
         this.publishWsTrades(fills, userId, market);
+      
         return { executedQty, fills, orderId: order.orderId };
-    }
+      }
+      
 
     updateDbOrders(order: Order, executedQty: number, fills: Fill[], market: string) {
         RedisManager.getInstance().pushMessage({
@@ -403,7 +426,11 @@ export class Engine {
             "TATA": {
                 available: 10000000,
                 locked: 0
-            }
+            },
+            "USD": { available: 10000000, locked: 0 },
+            "BTC": { available: 10000000, locked: 0 },
+
+
         });
 
         this.balances.set("2", {
@@ -414,7 +441,9 @@ export class Engine {
             "TATA": {
                 available: 10000000,
                 locked: 0
-            }
+            },
+            "USD": { available: 10000000, locked: 0 },
+            "BTC": { available: 10000000, locked: 0 },
         });
 
         this.balances.set("5", {
@@ -425,7 +454,9 @@ export class Engine {
             "TATA": {
                 available: 10000000,
                 locked: 0
-            }
+            },
+            "USD": { available: 10000000, locked: 0 },
+            "BTC": { available: 10000000, locked: 0 },
         });
     }
 
