@@ -48,7 +48,7 @@ const MarketBar = ({ market }: { market: string }) => {
                 <button className="flex bg-dark py-1.5 px-2 rounded-xl items-center shrink-0">
                     <img
                         className="w-8 rounded-full"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvBqZC_Q1TSYObZaMvK0DRFeHZDUtVMh08Q&s"
+                        src="/token/sol.webp"
                         alt="coin"
                     />
                     <span className="pl-2">{market.split("_")[0]}</span>

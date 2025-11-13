@@ -5,12 +5,23 @@ import { Ticker } from "../utils/types";
 import { getTickers } from "../utils/httpClient";
 import { useRouter } from "next/navigation";
 
-export const Markets = () => {
+export const Markets = ({ activeTab }: { activeTab: string }) => {
   const [tickers, setTickers] = useState<Ticker[]>();
 
   useEffect(() => {
     getTickers().then((m) => setTickers(m));
   }, []);
+  const filteredTickers = tickers
+    ? tickers.filter((t) => {
+      const isPerp = t.symbol.toUpperCase().includes("PERP");
+
+      if (activeTab === "spot") return !isPerp;
+      if (activeTab === "futures") return isPerp;
+
+      return true;
+    })
+    : [];
+
 
   return (
     <div className="flex flex-col flex-1 max-w-[1280px] w-full">
@@ -19,7 +30,7 @@ export const Markets = () => {
           <table className="w-full table-auto">
             <MarketHeader />
             {/* {tickers?.map((m) => <MarketRow market={m} />)} */}
-            {(tickers && tickers.length > 0) ? tickers.map((m) => <MarketRow market={m} />) : <></>}
+            {filteredTickers?.map((m) => <MarketRow market={m} />)}
           </table>
         </div>
       </div>
@@ -29,6 +40,13 @@ export const Markets = () => {
 
 function MarketRow({ market }: { market: Ticker }) {
   const router = useRouter();
+  const parts = market.symbol.split("_");
+  const base = parts[0].toLowerCase(); // use exactly what we already have
+  const change = Number(market.priceChangePercent);
+
+  const imgSrc = `https://backpack.exchange/_next/image?url=%2Fcoins%2F${base}.png&w=64&q=95`;
+
+  console.log("market", market);
   return (
     <tr className="cursor-pointer border-t border-baseBorderLight hover:bg-white/7 w-full" onClick={() => router.push(`/trade/${market.symbol}`)}>
       <td className="px-1 py-3">
@@ -39,25 +57,51 @@ function MarketRow({ market }: { market: Ticker }) {
               style={{ width: "40px", height: "40px" }}
             >
               <div className="relative">
+
                 <img
                   alt={market.symbol}
-                  src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvBqZC_Q1TSYObZaMvK0DRFeHZDUtVMh08Q&s"}
-                  loading="lazy"
+                  src={imgSrc}
+                  onError={(e) => {
+                    e.currentTarget.src =
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVvBqZC_Q1TSYObZaMvK0DRFeHZDUtVMh08Q&s"; // default fallback
+                  }}
                   width="40"
                   height="40"
-                  decoding="async"
-                  data-nimg="1"
-                  className=""
+                  loading="lazy"
                 />
+
+
               </div>
             </div>
             <div className="ml-4 flex flex-col">
               <p className="whitespace-nowrap text-base font-medium text-baseTextHighEmphasis">
-                {market.symbol}
+                {(() => {
+                  const parts = market.symbol.split("_");
+                  const base = parts[0];
+                  const middle = parts[1];
+                  const suffix = parts[2];
+
+                  if (suffix === "PERP") {
+                    return `${base.toUpperCase()}-PERP`;
+                  }
+
+                  return `${base.toUpperCase()}`;
+                })()}
               </p>
               <div className="flex items-center justify-start flex-row gap-2">
                 <p className="flex-medium text-left text-xs leading-5 text-baseTextMedEmphasis">
-                  {market.symbol}
+                  {(() => {
+                    const parts = market.symbol.split("_");
+                    const base = parts[0];
+                    const middle = parts[1];
+                    const suffix = parts[2];
+
+                    if (suffix === "PERP") {
+                      return `${base.toUpperCase()}-PERP`;
+                    }
+
+                    return `${base.toUpperCase()}/${middle.toUpperCase()}`;
+                  })()}
                 </p>
               </div>
             </div>
@@ -74,9 +118,14 @@ function MarketRow({ market }: { market: Ticker }) {
         <p className="text-base font-medium tabular-nums">{market.volume}</p>
       </td>
       <td className="px-1 py-3">
-        <p className="text-base font-medium tabular-nums text-greenText">
-          {Number(market.priceChangePercent)?.toFixed(3)} %
+
+        <p
+          className={`text-base font-medium tabular-nums ${change > 0 ? "text-green-500" : "text-red-500"
+            }`}
+        >
+          {change.toFixed(3)} %
         </p>
+
       </td>
     </tr>
   );
