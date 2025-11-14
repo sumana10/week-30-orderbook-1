@@ -43,7 +43,7 @@ const Appbar = () => {
                         { href: "/trade/SOL_USDC", label: "Futures" },
                         { href: "/trade/SOL_USDC", label: "Lend" },
                     ].map((item) => (
-                        <div key={item.href} className="text-sm pt-1 pl-8 flex flex-col justify-center">
+                        <div key={item.href} className="text-lg pt-1 pl-8 flex flex-col justify-center">
                             <Link
                                 href={item.href}
                                 className={`hover:text-gray-300 ${isActive(item.href) ? "text-gray-300" : "text-slate-500"
@@ -57,7 +57,7 @@ const Appbar = () => {
                     {/* Dropdown */}
                     <div ref={modalRef} className="relative pl-8 flex flex-col justify-center mt-[4px]">
                         <Button
-                            className={`text-sm flex flex-row-reverse items-center gap-1 hover:text-gray-300 ${isMoreActive ? "text-gray-300" : "text-slate-500"
+                            className={`text-lg flex flex-row-reverse items-center gap-1 hover:text-gray-300 ${isMoreActive ? "text-gray-300" : "text-slate-500"
                                 }`}
                             text="More"
                             icon={

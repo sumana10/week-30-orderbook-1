@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Ticker } from "../utils/types";
 import { getTickers } from "../utils/httpClient";
 import { useRouter } from "next/navigation";
+import { LineChart, Line, ResponsiveContainer, YAxis, AreaChart, Area } from "recharts";
 
 export const Markets = ({ activeTab }: { activeTab: string }) => {
   const [tickers, setTickers] = useState<Ticker[]>();
@@ -47,6 +48,29 @@ function MarketRow({ market }: { market: Ticker }) {
   const imgSrc = `https://backpack.exchange/_next/image?url=%2Fcoins%2F${base}.png&w=64&q=95`;
 
   console.log("market", market);
+
+
+  const raw = [
+    Number(market.firstPrice),
+    (Number(market.firstPrice) + Number(market.low)) / 2,
+    Number(market.low),
+    (Number(market.low) + Number(market.high)) / 2,
+    Number(market.high),
+    (Number(market.high) + Number(market.lastPrice)) / 2,
+    Number(market.lastPrice),
+  ];
+
+  const min = Math.min(...raw);
+  const max = Math.max(...raw);
+
+  const normalizedData = raw.map((v) => ({
+    value: 19 - ((v - min) / (max - min)) * 18,
+  }));
+
+  const isTrendUp =
+    normalizedData[normalizedData.length - 1].value >
+    normalizedData[0].value;
+
   return (
     <tr className="cursor-pointer border-t border-baseBorderLight hover:bg-white/7 w-full" onClick={() => router.push(`/trade/${market.symbol}`)}>
       <td className="px-1 py-3">
@@ -127,6 +151,45 @@ function MarketRow({ market }: { market: Ticker }) {
         </p>
 
       </td>
+      <td className="text-sm tabular-nums px-2 py-3 last:pr-7 text-right">
+        <div className="flex justify-end items-center">
+          <div className="w-[100px] h-[20px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={normalizedData}>
+                <defs>
+                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor={isTrendUp ? "#00c278" : "#ff4d4f"}
+                      stopOpacity={0.8}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor={isTrendUp ? "#00c278" : "#ff4d4f"}
+                      stopOpacity={0.1}
+                    />
+                  </linearGradient>
+                </defs>
+
+                <Area
+                  type="monotoneX"
+                  dataKey="value"
+                  stroke={isTrendUp ? "#00c278" : "#ff4d4f"}
+                  strokeWidth={1.5}
+                  fill="url(#colorValue)"
+                  dot={false}
+                  isAnimationActive={false}
+                />
+
+                <YAxis hide domain={[0, 20]} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </td>
+
+
+
     </tr>
   );
 }
@@ -173,6 +236,11 @@ function MarketHeader() {
         <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
           <div className="flex items-center gap-1 cursor-pointer select-none">
             24h Change<span className="w-[16px]"></span>
+          </div>
+        </th>
+        <th className="px-2 py-3 text-left text-sm font-normal text-baseTextMedEmphasis">
+          <div className="flex justify-end items-center gap-1 cursor-pointer select-none">
+            Last 7 days<span className="w-[16px]"></span>
           </div>
         </th>
       </tr>

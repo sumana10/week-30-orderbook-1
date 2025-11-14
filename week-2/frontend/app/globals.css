@@ -22,7 +22,27 @@ body {
 }
 
 @layer utilities {
+
   .text-balance {
     text-wrap: balance;
+  }
+  .text-baseTextHighEmphasis {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  .text-baseTextMedEmphasis {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .text-baseTextLowEmphasis {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .border-baseBorderMed {
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  .border-baseBorderLight {
+    border-color: rgba(255, 255, 255, 0.1);
   }
 }

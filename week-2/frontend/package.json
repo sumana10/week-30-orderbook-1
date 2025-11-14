@@ -17,12 +17,15 @@
     "lucide-react": "^0.553.0",
     "next": "14.2.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-sparklines": "^1.7.0",
+    "recharts": "^3.4.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-sparklines": "^1.7.5",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
